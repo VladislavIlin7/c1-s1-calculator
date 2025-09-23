@@ -1,20 +1,124 @@
 from src.power import power_function
 from src.constants import SAMPLE_CONSTANT
+from array import array
 
 
-def main() -> None:
-    """
-    Обязательнная составляющая программ, которые сдаются. Является точкой входа в приложение
-    :return: Данная функция ничего не возвращает
-    """
+class Token:
+    def __init__(self, type: str, value: str, priority: int):
+        self.type = type
+        self.value = value
+        self.priority = priority
 
-    target, degree = map(int, input("Введите два числа разделенные пробелом: ").split(" "))
+    type: str  # тип токена NUMBER, OP...
+    value: str
+    priority: int
 
-    result = power_function(target=target, power=degree)
 
-    print(result)
+def tokenize(expr: str) -> array[Token]:
+    expr = expr.replace(' ', '')  # remove spaces
+    tokens = []
+    state = 'START'
+    current_token = ''
 
-    print(SAMPLE_CONSTANT)
+    # 1+2 -> [1]
+    for char in expr:
+        if char == ' ':
+            state = 'START'
+        elif state == 'START':
+            if char.isdigit():
+                state = 'NUMBER'
+                current_token = char
+            elif char == '+':
+                tokens.append(Token('PLUS', char, 1))
+            elif char == '-':
+                tokens.append(Token('MINUS', char, 1))
+            elif char == '*':
+                tokens.append(Token('MUL', char, 2))
+            elif char == '/':
+                tokens.append(Token('DIV', char, 2))
+            elif char == '(':
+                tokens.append(Token('LEFT', char, 3))
+            elif char == ')':
+                tokens.append(Token('RIGHT', char, 3))
+            elif char == '.':
+                state = 'FLOAT'
+            elif char == '~':
+                current_token += '~'
+                state = 'NUMBER'
+            else:
+                raise 'Неверный символ'
 
-if __name__ == "__main__":
-    main()
+            # дописать, не забываем про числа с точкой
+
+        elif state == 'NUMBER' or state == 'FLOAT':
+            if char.isdigit():
+                current_token += char
+            elif char == '.':
+                current_token += char
+            else:
+                tokens.append(Token('NUMBER', current_token, 0))
+                if char == '+':
+                    tokens.append(Token('PLUS', char, 1))
+                    state = 'START'
+                    current_token = ''
+                elif char == '-':
+                    tokens.append(Token('MINUS', char, 1))
+                    state = 'START'
+                    current_token = ''
+                elif char == '*':
+                    tokens.append(Token('MUL', char, 2))
+                    state = 'START'
+                    current_token = ''
+                elif char == '/':
+                    tokens.append(Token('DIV', char, 2))
+                    state = 'START'
+                    current_token = ''
+                elif char == '(':
+                    tokens.append(Token('LEFT', char, 3))
+                    state = 'START'
+                    current_token = ''
+                elif char == ')':
+                    tokens.append(Token('RIGHT', char, 3))
+                    state = 'START'
+                    current_token = ''
+
+            # дописать
+        # дописать
+
+    # Завершающая обработка
+    if state == 'NUMBER':
+        tokens.append(Token('NUMBER', current_token, 0))
+
+    return tokens
+
+
+def tokens_to_RPN(tokens: array[Token]) -> array[Token]:
+    output = []
+    stack = []
+
+    for token in tokens:
+        if token.type == 'NUMBER':  # операнд
+            output.append(token)
+        elif token.type in ['PLUS', 'MINUS', 'MUL', 'DIV']:  # оператор
+            while stack and stack[-1].type in ['PLUS', 'MINUS', 'MUL', 'DIV'] and stack[-1].priority >= token.priority:
+                output.append(stack.pop())
+            stack.append(token)
+        elif token.type == 'LEFT':
+            stack.append(token)
+        elif token.type == 'RIGHT':
+            while stack and stack[-1].type != 'LEFT':
+                output.append(stack.pop())
+            stack.pop()  # убрать '('
+
+    while stack:
+        output.append(stack.pop())
+
+    return output
+
+
+def print_tokens(tokens: array[Token]):
+    for i in tokens:
+        print(i.type, i.value)
+
+
+print_tokens(tokens_to_RPN(tokenize('3 4 2 * 1 5 - / +')))
