@@ -7,9 +7,9 @@ def convert_infix_to_rpn(tokens: array[Token]) -> array[Token]:
     stack = []
 
     for token in tokens:
-        if token.type == 'NUMBER':  # операнд
+        if token.type == 'NUMBER':
             output.append(token)
-        elif token.type in ['PLUS', 'MINUS', 'MUL', 'DIV']:  # оператор
+        elif token.type in ['PLUS', 'MINUS', 'MUL', 'DIV']:
             while stack and stack[-1].type in ['PLUS', 'MINUS', 'MUL', 'DIV'] and stack[-1].priority >= token.priority:
                 output.append(stack.pop())
             stack.append(token)
@@ -18,7 +18,7 @@ def convert_infix_to_rpn(tokens: array[Token]) -> array[Token]:
         elif token.type == 'RIGHT':
             while stack and stack[-1].type != 'LEFT':
                 output.append(stack.pop())
-            stack.pop()  # убрать '('
+            stack.pop()
 
     while stack:
         output.append(stack.pop())

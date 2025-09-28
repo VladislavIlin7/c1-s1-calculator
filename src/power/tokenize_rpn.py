@@ -1,7 +1,6 @@
 from src.models.token import Token
 from array import array
 
-
 def tokenize_rpn(expr: str) -> array[Token]:
     expr_split = expr.replace('(', '').replace(')', '').split()
     tokens = []
@@ -21,10 +20,6 @@ def tokenize_rpn(expr: str) -> array[Token]:
             tokens.append(Token('MUL', part, 2))
         elif part == '/':
             tokens.append(Token('DIV', part, 2))
-
-        # elif part == '~':
-        #     current_token += '-'
-        #     state = 'NUMBER'
         else:
             raise 'Неверный символ'
 

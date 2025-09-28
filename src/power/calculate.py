@@ -2,6 +2,7 @@ from src.models.token import Token
 from array import array
 
 
+
 def calculate(tokens: array[Token]) -> float:
     stack = []
 
