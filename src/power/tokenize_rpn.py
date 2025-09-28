@@ -1,82 +1,31 @@
 from src.models.token import Token
 from array import array
 
-def tokenize_infix(expr: str) -> array[Token]:
-    expr = expr.replace(' ', '')  # remove spaces
+
+def tokenize_rpn(expr: str) -> array[Token]:
+    expr_split = expr.replace('(', '').replace(')', '').split()
     tokens = []
-    state = 'START'
-    current_token = ''
 
     # 1+2 -> [1]
-    for char in expr:
-        if char == ' ':
-            state = 'START'
-        elif state == 'START':
-            if char.isdigit():
-                state = 'NUMBER'
-                current_token = char
-            elif char == '+':
-                tokens.append(Token('PLUS', char, 1))
-            elif char == '-':
-                tokens.append(Token('MINUS', char, 1))
-            elif char == '*':
-                tokens.append(Token('MUL', char, 2))
-            elif char == '/':
-                tokens.append(Token('DIV', char, 2))
-            elif char == '(':
-                tokens.append(Token('LEFT', char, 3))
-            elif char == ')':
-                tokens.append(Token('RIGHT', char, 3))
-            elif char == '.':
-                state = 'FLOAT'
-            elif char == '~':
-                current_token += '-'
-                state = 'NUMBER'
-            else:
-                raise 'Неверный символ'
+    for part in expr_split:
+        part = part.replace('~', '-')
+        if part[0] == '-' and len(part) > 1 and part[1:].isdigit():
+            tokens.append(Token('NUMBER', part, 0))
+        elif part.isdigit():
+            tokens.append(Token('NUMBER', part, 0))
+        elif part == '+':
+            tokens.append(Token('PLUS', part, 1))
+        elif part == '-':
+            tokens.append(Token('MINUS', part, 1))
+        elif part == '*':
+            tokens.append(Token('MUL', part, 2))
+        elif part == '/':
+            tokens.append(Token('DIV', part, 2))
 
-            # дописать, не забываем про числа с точкой
-
-        elif state == 'NUMBER' or state == 'FLOAT':
-            if char.isdigit():
-                current_token += char
-            elif char == '.':
-                current_token += char
-            else:
-                tokens.append(Token('NUMBER', current_token, 0))
-                if char == '+':
-                    tokens.append(Token('PLUS', char, 1))
-                    state = 'START'
-                    current_token = ''
-                elif char == '-':
-                    tokens.append(Token('MINUS', char, 1))
-                    state = 'START'
-                    current_token = ''
-                elif char == '*':
-                    tokens.append(Token('MUL', char, 2))
-                    state = 'START'
-                    current_token = ''
-                elif char == '/':
-                    tokens.append(Token('DIV', char, 2))
-                    state = 'START'
-                    current_token = ''
-                elif char == '(':
-                    tokens.append(Token('LEFT', char, 3))
-                    state = 'START'
-                    current_token = ''
-                elif char == ')':
-                    tokens.append(Token('RIGHT', char, 3))
-                    state = 'START'
-                    current_token = ''
-
-            # дописать
-        # дописать
-
-    # Завершающая обработка
-    if state == 'NUMBER':
-        tokens.append(Token('NUMBER', current_token, 0))
+        # elif part == '~':
+        #     current_token += '-'
+        #     state = 'NUMBER'
+        else:
+            raise 'Неверный символ'
 
     return tokens
-
-
-

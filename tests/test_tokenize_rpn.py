@@ -1,14 +1,13 @@
 from src.power import *
 
 
-# --- RPN conversion tests ---
-def test_rpn_order():
-    tokens = tokenize_infix("3+4*2")
-    rpn = convert_infix_to_rpn(tokens)
-    assert [t.value for t in rpn] == ["3", "4", "2", "*", "+"]
+def test_tokenize_rpn_simple():
+    tokens = tokenize_rpn("3 2 +")
+    assert [t.type for t in tokens] == ["NUMBER", "NUMBER", "PLUS"]
+    assert [t.value for t in tokens] == ["3", "2", "+"]
 
-def test_rpn_parentheses():
-    tokens = tokenize_infix("(3+4)*2")
-    rpn = convert_infix_to_rpn(tokens)
-    assert [t.value for t in rpn] == ["3", "4", "+", "2", "*"]
 
+def test_tokenize_rpn_complex():
+    tokens = tokenize_rpn("~321 4 - 2 *")
+    assert [t.type for t in tokens] == ["NUMBER", "NUMBER", "MINUS", "NUMBER", "MUL"]
+    assert [t.value for t in tokens] == ["-321", "4", "-", "2", "*"]

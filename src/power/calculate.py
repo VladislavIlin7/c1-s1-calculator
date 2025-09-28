@@ -2,7 +2,7 @@ from src.models.token import Token
 from array import array
 
 
-def calculator(tokens: array[Token]) -> float:
+def calculate(tokens: array[Token]) -> float:
     stack = []
 
     for token in tokens:
