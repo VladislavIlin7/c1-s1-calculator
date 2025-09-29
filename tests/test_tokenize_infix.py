@@ -23,3 +23,13 @@ def test_tokenize_unary_minus():
     tokens = tokenize_infix("~10 -15")
     assert [t.type for t in tokens] == ["NUMBER", "MINUS", "NUMBER"]
     assert [t.value for t in tokens] == ["-10", '-', '15']
+
+def test_tokenize_POW():
+    tokens = tokenize_infix("2**4")
+    assert [t.type for t in tokens] == ["NUMBER", "POW", "NUMBER"]
+    assert [t.value for t in tokens] == ["2", "**", "4"]
+
+def test_tokenize_FLOORDIV():
+    tokens = tokenize_infix("9//4")
+    assert [t.type for t in tokens] == ["NUMBER", "FLOORDIV", "NUMBER"]
+    assert [t.value for t in tokens] == ["9", "//", "4"]
