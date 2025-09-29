@@ -23,4 +23,16 @@ def calculate(tokens: array[Token]) -> float:
             a = stack.pop()
             b = stack.pop()
             stack.append(a * b)
+        elif token.type == 'POW':
+            a = stack.pop()
+            b = stack.pop()
+            stack.append(b ** a)
+        elif token.type == 'MOD':
+            a = stack.pop()
+            b = stack.pop()
+            stack.append(b % a)
+        elif token.type == 'FLOORDIV':
+            a = stack.pop()
+            b = stack.pop()
+            stack.append(b // a)
     return stack[0]

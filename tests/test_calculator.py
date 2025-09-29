@@ -52,3 +52,30 @@ def test_calculate_expression_with_multiple_ops():
     ]
     result = calculate(tokens)
     assert result == 20.0
+
+def test_calculate_FLOORDIV():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("NUMBER", "5", 0),
+        Token("FLOORDIV", "//", 2),
+    ]
+    result = calculate(tokens)
+    assert result == 4
+
+def test_calculate_POW():
+    tokens = [
+        Token("NUMBER", "2", 0),
+        Token("NUMBER", "5", 0),
+        Token("POW", "**", 3),
+    ]
+    result = calculate(tokens)
+    assert result == 32
+
+def test_calculate_MOD():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("NUMBER", "5", 0),
+        Token("MOD", "%", 2),
+    ]
+    result = calculate(tokens)
+    assert result == 2

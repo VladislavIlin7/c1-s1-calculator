@@ -46,3 +46,30 @@ def test_convert_infix_to_rpn_unary_minus():
     ]
     rpn = convert_infix_to_rpn(tokens)
     assert [t.value for t in rpn] == ["-10", "15", "-"]
+
+def test_convert_infix_to_rpn_POW():
+    tokens = [
+        Token("NUMBER", "-10",0),
+        Token("POW", "**", 3),
+        Token("NUMBER", "15",0),
+    ]
+    rpn = convert_infix_to_rpn(tokens)
+    assert [t.value for t in rpn] == ["-10", "15", "**"]
+
+def test_convert_infix_to_rpn_FLOORDIV():
+    tokens = [
+        Token("NUMBER", "-10",0),
+        Token("FLOORDIV", "//", 3),
+        Token("NUMBER", "15",0),
+    ]
+    rpn = convert_infix_to_rpn(tokens)
+    assert [t.value for t in rpn] == ["-10", "15", "//"]
+
+def test_convert_infix_to_rpn_MOD():
+    tokens = [
+        Token("NUMBER", "-10",0),
+        Token("MOD", "%", 3),
+        Token("NUMBER", "15",0),
+    ]
+    rpn = convert_infix_to_rpn(tokens)
+    assert [t.value for t in rpn] == ["-10", "15", "%"]
