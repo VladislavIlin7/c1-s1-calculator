@@ -20,7 +20,13 @@ def tokenize_rpn(expr: str) -> array[Token]:
             tokens.append(Token('MUL', part, 2))
         elif part == '/':
             tokens.append(Token('DIV', part, 2))
+        elif part == '**':
+            tokens.append(Token('POW', part, 3))
+        elif part == '//':
+            tokens.append(Token('FLOORDIV', part, 2))
+        elif part == '%':
+            tokens.append(Token('MOD', part, 2))
         else:
-            raise 'Неверный символ'
+            raise ValueError(f'Неверный символ: {part}')
 
     return tokens

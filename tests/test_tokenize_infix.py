@@ -33,3 +33,7 @@ def test_tokenize_FLOORDIV():
     tokens = tokenize_infix("9//4")
     assert [t.type for t in tokens] == ["NUMBER", "FLOORDIV", "NUMBER"]
     assert [t.value for t in tokens] == ["9", "//", "4"]
+def test_tokenize_MOD():
+    tokens = tokenize_infix("9%4")
+    assert [t.type for t in tokens] == ["NUMBER", "MOD", "NUMBER"]
+    assert [t.value for t in tokens] == ["9", "%", "4"]
