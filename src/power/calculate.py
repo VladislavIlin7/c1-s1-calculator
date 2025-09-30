@@ -7,43 +7,36 @@ def calculate(tokens: array[Token]) -> float:
     for token in tokens:
         if token.type_token == 'NUMBER':
             stack.append(float(token.value))
-        elif token.type_token == 'PLUS':
-            a = stack.pop()
-            b = stack.pop()
+            continue
+
+        if len(stack) < 2:
+            raise SyntaxError('Не верно введено выражение, недостаточно аргументов')
+
+        a = stack.pop()
+        b = stack.pop()
+        if token.type_token == 'PLUS':
             stack.append(a + b)
         elif token.type_token == 'MINUS':
-            a = stack.pop()
-            b = stack.pop()
             stack.append(b - a)
         elif token.type_token == 'DIV':
-            a = stack.pop()
-            b = stack.pop()
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
-            else:
-                stack.append(b / a)
+            stack.append(b / a)
         elif token.type_token == 'MUL':
-            a = stack.pop()
-            b = stack.pop()
             stack.append(a * b)
         elif token.type_token == 'POW':
-            a = stack.pop()
-            b = stack.pop()
             stack.append(b ** a)
         elif token.type_token == 'MOD':
-            a = stack.pop()
-            b = stack.pop()
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
-            else:
-                stack.append(b % a)
+            stack.append(b % a)
         elif token.type_token == 'FLOORDIV':
-            a = stack.pop()
-            b = stack.pop()
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
-            elif a != int(a) and b != int(b):
+            if a != int(a) and b != int(b):
                 raise SyntaxError('Целочисленное деление выполняется только с целыми числами')
-            else:
-                stack.append(b // a)
+            stack.append(b // a)
+
+    if len(stack) > 1:
+        raise SyntaxError('Не верно введено выражение, много аргументов')
     return stack[0]

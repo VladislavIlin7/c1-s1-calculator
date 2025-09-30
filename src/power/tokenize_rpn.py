@@ -27,6 +27,6 @@ def tokenize_rpn(expr: str) -> array[Token]:
         elif part == '%':
             tokens.append(Token('MOD', part, 2))
         else:
-            raise ValueError(f'Неверный символ: {part}')
+            raise ValueError(f'Неверный символ - {part}')
 
     return tokens

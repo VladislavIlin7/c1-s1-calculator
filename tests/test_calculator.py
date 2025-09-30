@@ -1,3 +1,5 @@
+import pytest
+
 from src.models.token import Token
 from src.power import *
 
@@ -82,3 +84,21 @@ def test_calculate_mod():
     ]
     result = calculate(tokens)
     assert result == 2
+
+
+def test_calculate_invalid_arguments():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("MOD", "%", 2),
+    ]
+    with pytest.raises(SyntaxError):
+        calculate(tokens)
+
+
+def test_calculate_too_many_arguments():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("NUMBER", "23", 0),
+    ]
+    with pytest.raises(SyntaxError):
+        calculate(tokens)

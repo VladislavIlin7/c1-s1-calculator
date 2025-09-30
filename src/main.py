@@ -13,17 +13,21 @@ def handle_input():
     while mode != '3':
         print_usage()
         mode = input()
-        if mode == '1':
-            expr = input('Введите выражение в инфиксной форме:')
-            print(f'Ответ: {calculate(convert_infix_to_rpn(tokenize_infix(expr)))}')
-        elif mode == '2':
-            expr = input('Введите выражение в постфиксной форме:')
-            print(f'Ответ: {calculate(tokenize_rpn(expr))}')
-        elif mode == '3':
-            print('Пока Пока!')
-        else:
-            print(f'Неправильный ввод - {mode}')
-            print('Попробуйте ещё раз')
+        try:
+            if mode == '1':
+                expr = input('Введите выражение в инфиксной форме: ')
+                print(f'Ответ: {calculate(convert_infix_to_rpn(tokenize_infix(expr)))}')
+            elif mode == '2':
+                expr = input('Введите выражение в постфиксной форме: ')
+                print(f'Ответ: {calculate(tokenize_rpn(expr))}')
+            elif mode == '3':
+                print('Пока Пока!')
+            else:
+                print(f'Неправильный ввод - {mode}')
+                print('Попробуйте ещё раз')
+        except Exception as e:
+            print(f"Ошибка при вычислении: {e}")
+
 
 
 handle_input()
