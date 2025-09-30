@@ -4,9 +4,9 @@ from src.power import *
 
 
 def test_tokenize_simple():
-    tokens = tokenize_infix("1+2")
-    assert [t.type_token for t in tokens] == ["NUMBER", "PLUS", "NUMBER"]
-    assert [t.value for t in tokens] == ["1", "+", "2"]
+    tokens = tokenize_infix("123*2")
+    assert [t.type_token for t in tokens] == ["NUMBER", "MUL", "NUMBER"]
+    assert [t.value for t in tokens] == ["123", "*", "2"]
 
 
 def test_tokenize_with_spaces():
@@ -30,13 +30,13 @@ def test_tokenize_unary_minus():
 def test_tokenize_pow():
     tokens = tokenize_infix("2**4")
     assert [t.type_token for t in tokens] == ["NUMBER", "POW", "NUMBER"]
-    assert [t.value for t in tokens] == ["2", "**", "4"]
+    assert [t.value for t in tokens] == ["2", "^", "4"]
 
 
 def test_tokenize_floordiv():
     tokens = tokenize_infix("9//4")
     assert [t.type_token for t in tokens] == ["NUMBER", "FLOORDIV", "NUMBER"]
-    assert [t.value for t in tokens] == ["9", "//", "4"]
+    assert [t.value for t in tokens] == ["9", "$", "4"]
 
 
 def test_tokenize_mod():
