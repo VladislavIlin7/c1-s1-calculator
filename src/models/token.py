@@ -1,9 +1,9 @@
 class Token:
-    def __init__(self, type: str, value: str, priority: int):
-        self.type = type
+    def __init__(self, type_t: str, value: str, priority: int):
+        self.type_token = type_t
         self.value = value
         self.priority = priority
 
-    type: str  # тип токена NUMBER, OP...
+    type_token: str
     value: str
     priority: int

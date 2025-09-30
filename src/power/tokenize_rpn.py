@@ -5,7 +5,6 @@ def tokenize_rpn(expr: str) -> array[Token]:
     expr_split = expr.replace('(', '').replace(')', '').split()
     tokens = []
 
-    # 1+2 -> [1]
     for part in expr_split:
         part = part.replace('~', '-')
         if part[0] == '-' and len(part) > 1 and part[1:].isdigit():

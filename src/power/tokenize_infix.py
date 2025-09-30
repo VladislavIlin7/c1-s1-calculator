@@ -65,6 +65,8 @@ def tokenize_infix(expr: str) -> list[Token]:
                 elif char == ')':
                     tokens.append(Token('RIGHT', char, 3))
                     state = 'START'
+                else:
+                    raise ValueError(f'Неверный символ: {char}')
 
         elif state == 'MUL':
             if char == '*':
@@ -91,6 +93,8 @@ def tokenize_infix(expr: str) -> list[Token]:
                         tokens.append(Token('LEFT', char, 3))
                     elif char == ')':
                         tokens.append(Token('RIGHT', char, 3))
+                    else:
+                        raise ValueError(f'Неверный символ: {char}')
 
         elif state == 'DIV':
             if char == '/':
@@ -117,6 +121,8 @@ def tokenize_infix(expr: str) -> list[Token]:
                         tokens.append(Token('LEFT', char, 3))
                     elif char == ')':
                         tokens.append(Token('RIGHT', char, 3))
+                    else:
+                        raise ValueError(f'Неверный символ: {char}')
 
     if state == 'NUMBER':
         tokens.append(Token('NUMBER', current_token, 0))
