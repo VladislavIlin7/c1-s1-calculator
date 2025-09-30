@@ -10,7 +10,8 @@ def convert_infix_to_rpn(tokens: array[Token]) -> array[Token]:
         if token.type_token == 'NUMBER':
             output.append(token)
         elif token.type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV']:
-            while stack and stack[-1].type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV'] and stack[-1].priority >= token.priority:
+            while (stack and stack[-1].type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV']
+                   and stack[-1].priority >= token.priority):
                 output.append(stack.pop())
             stack.append(token)
         elif token.type_token == 'LEFT':
@@ -19,11 +20,7 @@ def convert_infix_to_rpn(tokens: array[Token]) -> array[Token]:
             while stack and stack[-1].type_token != 'LEFT':
                 output.append(stack.pop())
             stack.pop()
-
     while stack:
         output.append(stack.pop())
 
     return output
-
-
-

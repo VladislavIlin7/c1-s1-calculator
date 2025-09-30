@@ -3,10 +3,8 @@ from array import array
 
 
 def calculate(tokens: array[Token]) -> float:
-
     stack = []
     for token in tokens:
-
         if token.type_token == 'NUMBER':
             stack.append(float(token.value))
         elif token.type_token == 'PLUS':
@@ -17,15 +15,13 @@ def calculate(tokens: array[Token]) -> float:
             a = stack.pop()
             b = stack.pop()
             stack.append(b - a)
-
         elif token.type_token == 'DIV':
             a = stack.pop()
             b = stack.pop()
-            if a==0:
-                raise ZeroDivisionError('Деление на 0')
+            if a == 0:
+                raise ZeroDivisionError('Делить на 0 нельзя')
             else:
                 stack.append(b / a)
-
         elif token.type_token == 'MUL':
             a = stack.pop()
             b = stack.pop()
@@ -37,9 +33,17 @@ def calculate(tokens: array[Token]) -> float:
         elif token.type_token == 'MOD':
             a = stack.pop()
             b = stack.pop()
-            stack.append(b % a)
+            if a == 0:
+                raise ZeroDivisionError('Делить на 0 нельзя')
+            else:
+                stack.append(b % a)
         elif token.type_token == 'FLOORDIV':
             a = stack.pop()
             b = stack.pop()
-            stack.append(b // a)
+            if a == 0:
+                raise ZeroDivisionError('Делить на 0 нельзя')
+            elif a != int(a) and b != int(b):
+                raise SyntaxError('Целочисленное деление выполняется только с целыми числами')
+            else:
+                stack.append(b // a)
     return stack[0]

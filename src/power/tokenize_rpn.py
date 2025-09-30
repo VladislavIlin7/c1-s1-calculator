@@ -1,6 +1,7 @@
 from src.models.token import Token
 from array import array
 
+
 def tokenize_rpn(expr: str) -> array[Token]:
     expr_split = expr.replace('(', '').replace(')', '').split()
     tokens = []

@@ -25,4 +25,5 @@ def handle_input():
             print(f'Неправильный ввод - {mode}')
             print('Попробуйте ещё раз')
 
+
 handle_input()

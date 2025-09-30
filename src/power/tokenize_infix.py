@@ -45,7 +45,7 @@ def tokenize_infix(expr: str) -> list[Token]:
             else:
                 tokens.append(Token('NUMBER', current_token, 0))
                 current_token = ''
-
+                # повторно обрабатываем текущий символ
                 if char == '+':
                     tokens.append(Token('PLUS', char, 1))
                     state = 'START'
@@ -74,7 +74,6 @@ def tokenize_infix(expr: str) -> list[Token]:
                 state = 'START'
             else:
                 tokens.append(Token('MUL', '*', 2))
-
                 # повторно обрабатываем текущий символ
                 if char.isdigit():
                     state = 'NUMBER'
@@ -102,8 +101,7 @@ def tokenize_infix(expr: str) -> list[Token]:
                 state = 'START'
             else:
                 tokens.append(Token('DIV', '/', 2))
-                # повторная обработка символа
-
+                # повторно обрабатываем текущий символ
                 if char.isdigit():
                     state = 'NUMBER'
                     current_token = char
