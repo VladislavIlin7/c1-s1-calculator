@@ -89,7 +89,7 @@ def test_calculate_mod():
 def test_calculate_invalid_arguments():
     tokens = [
         Token("NUMBER", "22", 0),
-        Token("MOD", "%", 2),
+        Token("MOD", "%", 2)
     ]
     with pytest.raises(SyntaxError):
         calculate(tokens)
@@ -98,7 +98,27 @@ def test_calculate_invalid_arguments():
 def test_calculate_too_many_arguments():
     tokens = [
         Token("NUMBER", "22", 0),
-        Token("NUMBER", "23", 0),
+        Token("NUMBER", "23", 0)
+    ]
+    with pytest.raises(SyntaxError):
+        calculate(tokens)
+
+
+def test_calculate_mod_error():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("NUMBER", "2.3", 0),
+        Token("MOD", "%", 2)
+    ]
+    with pytest.raises(SyntaxError):
+        calculate(tokens)
+
+
+def test_calculate_floordiv_error():
+    tokens = [
+        Token("NUMBER", "22", 0),
+        Token("NUMBER", "2.3", 0),
+        Token("FLOORDIV", "//", 2)
     ]
     with pytest.raises(SyntaxError):
         calculate(tokens)

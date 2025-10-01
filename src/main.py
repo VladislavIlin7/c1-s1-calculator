@@ -8,7 +8,7 @@ def print_usage():
     print('     3-выход из программы')
 
 
-def handle_input():
+def main():
     mode: str = ''
     while mode != '3':
         print_usage()
@@ -29,5 +29,5 @@ def handle_input():
             print(f"Ошибка при вычислении: {e}")
 
 
-
-handle_input()
+if __name__ == '__main__':
+    main()

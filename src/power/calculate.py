@@ -3,13 +3,14 @@ from array import array
 
 
 def calculate(tokens: array[Token]) -> float:
-    stack = []
+    """Evaluates an expression in postfix notation using the stack"""
+    stack: array[float] = []
     for token in tokens:
         if token.type_token == 'NUMBER':
             stack.append(float(token.value))
             continue
 
-        if len(stack) < 2:
+        if len(stack) < 2:      # To calculate, you need at least 2 numbers in the stack
             raise SyntaxError('Не верно введено выражение, недостаточно аргументов')
 
         a = stack.pop()
@@ -29,11 +30,13 @@ def calculate(tokens: array[Token]) -> float:
         elif token.type_token == 'MOD':
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
+            if a != int(a) or b != int(b):
+                raise SyntaxError('MOD деление выполняется только с целыми числами')
             stack.append(b % a)
         elif token.type_token == 'FLOORDIV':
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
-            if a != int(a) and b != int(b):
+            if a != int(a) or b != int(b):
                 raise SyntaxError('Целочисленное деление выполняется только с целыми числами')
             stack.append(b // a)
 

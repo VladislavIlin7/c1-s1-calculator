@@ -3,6 +3,7 @@ from array import array
 
 
 def convert_infix_to_rpn(tokens: array[Token]) -> array[Token]:
+    """Convert infix to postfix"""
     output = []
     stack = []
 

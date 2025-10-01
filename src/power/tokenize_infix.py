@@ -1,8 +1,8 @@
 from src.models.token import Token
-from array import array
 
 
 def tokenize_infix(expr: str) -> list[Token]:
+    """Splits the entered expression in infix notation into tokens"""
     expr = expr.replace(' ', '').replace('**', '^').replace('//', '$')
 
     tokens = []
