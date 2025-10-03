@@ -11,6 +11,8 @@ def tokenize_rpn(expr: str) -> array[Token]:
         part = part.replace('~', '-')
         if part[0] == '-' and len(part) > 1 and part[1:].isdigit():
             tokens.append(Token('NUMBER', part, 0))
+        elif part[0] == '+' and len(part) > 1 and part[1:].isdigit():
+            tokens.append(Token('NUMBER', part[1:], 0))
         elif '.' in part and part.count('.') == 1:
             parts = part.split('.')
             if len(parts) == 2 and parts[0].isdigit() and parts[1].isdigit():
