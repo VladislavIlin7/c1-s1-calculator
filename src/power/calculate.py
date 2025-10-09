@@ -10,7 +10,7 @@ def calculate(tokens: array[Token]) -> float:
             stack.append(float(token.value))
             continue
 
-        if len(stack) < 2:      # To calculate, you need at least 2 numbers in the stack
+        if len(stack) < 2:
             raise SyntaxError('Не верно введено выражение, недостаточно аргументов')
 
         a = stack.pop()
