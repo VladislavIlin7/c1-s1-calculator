@@ -2,7 +2,7 @@ from src.models.token import Token
 from array import array
 
 
-def tokenize_rpn(expr: str) -> array[Token]:
+def tokenize_rpn(expr: str) -> list[Token]:
     """Splits the entered expression in postfix notation into tokens"""
     expr_split = expr.replace('(', '').replace(')', '').split()
     tokens = []

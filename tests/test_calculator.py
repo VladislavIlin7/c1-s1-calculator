@@ -1,5 +1,4 @@
 import pytest
-
 from src.models.token import Token
 from src.power import *
 
