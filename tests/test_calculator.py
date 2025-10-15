@@ -1,5 +1,5 @@
 import pytest
-from src.models.token import Token
+from src.models import *
 from src.power import *
 
 
@@ -119,5 +119,5 @@ def test_calculate_floordiv_error():
         Token("NUMBER", "2.3", 0),
         Token("FLOORDIV", "//", 2)
     ]
-    with pytest.raises(SyntaxError):
+    with pytest.raises(FloorDivExeption):
         calculate(tokens)

@@ -1,5 +1,4 @@
-from src.models.token import Token
-from src.models.exception import *
+from src.models import *
 
 
 def calculate(tokens: list[Token]) -> float:
