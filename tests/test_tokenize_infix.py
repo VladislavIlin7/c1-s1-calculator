@@ -45,5 +45,5 @@ def test_tokenize_mod():
 
 
 def test_tokenize_exception():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         tokenize_infix("9%4r")

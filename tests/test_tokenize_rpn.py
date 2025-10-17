@@ -33,5 +33,5 @@ def test_tokenize_rpn_complex():
 
 
 def test_tokenize_exception():
-    with pytest.raises(ValueError):
-        tokenize_infix("9 5f + +")
+    with pytest.raises(TypeError):
+        tokenize_rpn("9 5f + +")

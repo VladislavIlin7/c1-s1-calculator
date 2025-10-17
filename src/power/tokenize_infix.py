@@ -40,7 +40,7 @@ def tokenize_infix(expr: str) -> list[Token]:
                 current_token += '-'
                 state = 'NUMBER'
             else:
-                raise ValueError(f'Неверный символ - {char}')
+                raise TypeError(f'Неверный символ - {char}')
 
         elif state == 'NUMBER' or state == 'FLOAT':
             if char.isdigit():
@@ -79,7 +79,7 @@ def tokenize_infix(expr: str) -> list[Token]:
                     tokens.append(Token('RIGHT', char, 3))
                     state = 'START'
                 else:
-                    raise ValueError(f'Неверный символ - {char}')
+                    raise TypeError(f'Неверный символ - {char}')
 
     if state == 'NUMBER':
         tokens.append(Token('NUMBER', current_token, 0))
