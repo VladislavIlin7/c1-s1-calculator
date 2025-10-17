@@ -1,5 +1,5 @@
-from src.models.token import Token
-
+from src.models import *
+from src.power.bracketsException import BracketsException
 
 def convert_infix_to_rpn(tokens: list[Token]) -> list[Token]:
     """Convert infix to postfix"""
@@ -19,7 +19,12 @@ def convert_infix_to_rpn(tokens: list[Token]) -> list[Token]:
         elif token.type_token == 'RIGHT':
             while stack and stack[-1].type_token != 'LEFT':
                 output.append(stack.pop())
+            if not stack:
+                raise BracketsException('Неправильно расставлены скобки')
             stack.pop()
+    for token in stack:
+        if token.type_token == 'LEFT':
+            raise BracketsException("Ошибка: не хватает закрывающей скобки ')'")
     while stack:
         output.append(stack.pop())
 

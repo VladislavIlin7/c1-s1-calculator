@@ -1,5 +1,8 @@
+import pytest
+
 from src.power import *
 from src.models.token import Token
+from src.power.bracketsException import BracketsException
 
 
 def test_convert_infix_to_rpn_simple_addition():
@@ -24,7 +27,7 @@ def test_convert_infix_to_rpn_operator_precedence():
     assert [t.value for t in rpn] == ["2", "3", "4", "*", "+"]
 
 
-def test_convert_infix_to_rpn_with_parentheses():
+def test_convert_infix_to_rpn_with_brackets():
     tokens = [
         Token("LEFT", "(", 3),
         Token("NUMBER", "2", 0),
@@ -76,3 +79,15 @@ def test_convert_infix_to_rpn_mod():
     ]
     rpn = convert_infix_to_rpn(tokens)
     assert [t.value for t in rpn] == ["-10", "15", "%"]
+
+def test_convert_infix_to_rpn_with_brackets_error():
+    tokens = [
+        Token("NUMBER", "2", 0),
+        Token("PLUS", "+", 1),
+        Token("NUMBER", "3", 0),
+        Token("RIGHT", ")", 3),
+        Token("MUL", "*", 2),
+        Token("NUMBER", "4", 0),
+    ]
+    with pytest.raises(BracketsException):
+        convert_infix_to_rpn(tokens)

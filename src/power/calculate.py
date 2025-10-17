@@ -1,4 +1,9 @@
 from src.models import *
+from src.power.modException import ModException
+from src.power.manyOpsException import ManyOpsException
+from src.power.manyArgsException import ManyArgsException
+from src.power.floorDivException import FloorDivException
+
 
 
 def calculate(tokens: list[Token]) -> float:
@@ -10,7 +15,7 @@ def calculate(tokens: list[Token]) -> float:
             continue
 
         if len(stack) < 2:
-            raise ManyOpExeption('Не верно введено выражение, недостаточно аргументов')
+            raise ManyOpsException('Не верно введено выражение, недостаточно аргументов')
 
         a = stack.pop()
         b = stack.pop()
@@ -30,15 +35,15 @@ def calculate(tokens: list[Token]) -> float:
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
             if a != int(a) or b != int(b):
-                raise ModExeption('MOD деление выполняется только с целыми числами')
+                raise ModException('MOD деление выполняется только с целыми числами')
             stack.append(b % a)
         elif token.type_token == 'FLOORDIV':
             if a == 0:
                 raise ZeroDivisionError('Делить на 0 нельзя')
             if a != int(a) or b != int(b):
-                raise FloorDivExeption('Целочисленное деление выполняется только с целыми числами')
+                raise FloorDivException('Целочисленное деление выполняется только с целыми числами')
             stack.append(b // a)
 
     if len(stack) > 1:
-        raise ManyArgExeption('Не верно введено выражение, много аргументов')
+        raise ManyArgsException('Не верно введено выражение, много аргументов')
     return stack[0]

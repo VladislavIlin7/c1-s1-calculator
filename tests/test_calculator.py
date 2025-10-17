@@ -1,6 +1,10 @@
 import pytest
 from src.models import *
 from src.power import *
+from src.power.floorDivException import FloorDivException
+from src.power.manyArgsException import ManyArgsException
+from src.power.manyOpsException import ManyOpsException
+from src.power.modException import ModException
 
 
 def test_calculate_simple_addition():
@@ -90,7 +94,7 @@ def test_calculate_invalid_arguments():
         Token("NUMBER", "22", 0),
         Token("MOD", "%", 2)
     ]
-    with pytest.raises(SyntaxError):
+    with pytest.raises(ManyOpsException):
         calculate(tokens)
 
 
@@ -99,7 +103,7 @@ def test_calculate_too_many_arguments():
         Token("NUMBER", "22", 0),
         Token("NUMBER", "23", 0)
     ]
-    with pytest.raises(SyntaxError):
+    with pytest.raises(ManyArgsException):
         calculate(tokens)
 
 
@@ -109,7 +113,7 @@ def test_calculate_mod_error():
         Token("NUMBER", "2.3", 0),
         Token("MOD", "%", 2)
     ]
-    with pytest.raises(SyntaxError):
+    with pytest.raises(ModException):
         calculate(tokens)
 
 
@@ -119,5 +123,5 @@ def test_calculate_floordiv_error():
         Token("NUMBER", "2.3", 0),
         Token("FLOORDIV", "//", 2)
     ]
-    with pytest.raises(FloorDivExeption):
+    with pytest.raises(FloorDivException):
         calculate(tokens)

@@ -1,0 +1,1 @@
+class ManyOpsException(Exception): pass

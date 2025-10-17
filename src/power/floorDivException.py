@@ -1,0 +1,1 @@
+class FloorDivException(Exception): pass

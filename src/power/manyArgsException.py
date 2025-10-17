@@ -1,0 +1,1 @@
+class ManyArgsException(Exception): pass

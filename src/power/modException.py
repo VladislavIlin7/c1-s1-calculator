@@ -1,0 +1,1 @@
+class ModException(Exception): pass
