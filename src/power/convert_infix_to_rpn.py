@@ -9,8 +9,10 @@ def convert_infix_to_rpn(tokens: list[Token]) -> list[Token]:
     for token in tokens:
         if token.type_token == 'NUMBER':
             output.append(token)
-        elif token.type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV']:
-            while (stack and stack[-1].type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV']
+        elif token.type_token == 'UNARY_MINUS':
+            stack.append(token)
+        elif token.type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV', 'UNARY_MINUS']:
+            while (stack and stack[-1].type_token in ['PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'MOD', 'FLOORDIV', 'UNARY_MINUS']
                    and stack[-1].priority >= token.priority):
                 output.append(stack.pop())
             stack.append(token)
@@ -28,4 +30,12 @@ def convert_infix_to_rpn(tokens: list[Token]) -> list[Token]:
     while stack:
         output.append(stack.pop())
 
-    return output
+    final_output = []
+    for token in output:
+        if token.type_token == 'UNARY_MINUS':
+            final_output.append(Token('NUMBER', '0', 0))
+            final_output.append(Token('MINUS', '-', 1))
+        else:
+            final_output.append(token)
+
+    return final_output

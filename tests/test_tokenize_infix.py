@@ -21,9 +21,14 @@ def test_tokenize_float():
 
 
 def test_tokenize_unary_minus():
-    tokens = tokenize_infix("~10 -15")
+    tokens = tokenize_infix("~10.5 -15")
     assert [t.type_token for t in tokens] == ["NUMBER", "MINUS", "NUMBER"]
-    assert [t.value for t in tokens] == ["-10", '-', '15']
+    assert [t.value for t in tokens] == ["-10.5", '-', '15']
+
+
+def test_tokenize_infix_unary_minus_before_bracket():
+    tokens = tokenize_infix("~(2.2-4)")
+    assert [t.type_token for t in tokens] == ["UNARY_MINUS", "LEFT", "NUMBER", "MINUS", "NUMBER", "RIGHT"]
 
 
 def test_tokenize_pow():
