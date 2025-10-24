@@ -5,9 +5,9 @@ def tokenize_infix(expr: str) -> list[Token]:
     """Splits the entered expression in infix notation into tokens"""
     expr = expr.replace(' ', '').replace('**', '^').replace('//', '$')
 
-    tokens = []
-    state = 'START'
-    current_token = ''
+    tokens: list = []
+    state: str = 'START'
+    current_token: str = ''
 
     i = 0
     n = len(expr)
@@ -51,7 +51,8 @@ def tokenize_infix(expr: str) -> list[Token]:
                     i += 1
                     continue
                 elif next == '(':
-                    tokens.append(Token('UNARY_MINUS', '~', 4))
+                    tokens.append(Token('NUMBER', '0', 0))
+                    tokens.append(Token('MINUS', '-', 1))
                 else:
                     raise TypeError(f'Неверный символ - {char}')
             else:

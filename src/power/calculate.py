@@ -8,7 +8,7 @@ from src.power.floorDivException import FloorDivException
 
 def calculate(tokens: list[Token]) -> float:
     """Evaluates an expression in postfix notation using the stack"""
-    stack = []
+    stack: list = []
     for token in tokens:
         if token.type_token == 'NUMBER':
             stack.append(float(token.value))

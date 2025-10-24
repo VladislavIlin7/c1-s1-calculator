@@ -5,7 +5,7 @@ from array import array
 def tokenize_rpn(expr: str) -> list[Token]:
     """Splits the entered expression in postfix notation into tokens"""
     expr_split = expr.replace('(', '').replace(')', '').split()
-    tokens = []
+    tokens: list = []
 
     for part in expr_split:
         part = part.replace('~', '-')

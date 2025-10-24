@@ -28,7 +28,7 @@ def test_tokenize_unary_minus():
 
 def test_tokenize_infix_unary_minus_before_bracket():
     tokens = tokenize_infix("~(2.2-4)")
-    assert [t.type_token for t in tokens] == ["UNARY_MINUS", "LEFT", "NUMBER", "MINUS", "NUMBER", "RIGHT"]
+    assert [t.type_token for t in tokens] == ["NUMBER", "MINUS", "LEFT", "NUMBER", "MINUS", "NUMBER", "RIGHT"]
 
 
 def test_tokenize_pow():
